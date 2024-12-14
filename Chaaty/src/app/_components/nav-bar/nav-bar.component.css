@@ -1,0 +1,13 @@
+
+.nav-link {
+  transition: font-weight 0.3s ease;
+}
+
+.nav-link:hover{
+  font-weight: bold;
+}
+
+.active{
+  border-bottom: solid 1px whitesmoke ;
+  font-weight:700;
+}

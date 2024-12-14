@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-2 d-flex flex-column" *ngFor="let photo of user.photos">
+    <img
+      src="{{ photo.url }}"
+      alt="{{ photo.url }}"
+      class="img-thumbnail p-1"
+    />
+    <div class="d-flex">
+      <button
+        [hidden]="photo.isMain"
+        (click)="setMain(photo.id)"
+        [ngClass]="photo.isMain ? 'btn-success active' : 'btn-outline-success'"
+        class="btn btn-sm flex-grow-1"
+      >
+        main
+      </button>
+      <button
+        [hidden]="photo.isMain"
+        (click)="deletePhoto(photo.id)"
+        class="btn btn-sm btn-danger flex-grow-1"
+      >
+        <i class="fa fa-trash"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<hr />
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" #photoForm="ngForm">
+  <label for="formFile" class="form-label">Upload image to your account</label>
+  <input
+    type="file"
+    (change)="onFileSelected($event)"
+    accept="image/*"
+    formControlName="fileInput"
+    class="form-control mb-3"
+    id="formFile"
+    required
+  />
+  <button type="submit" [disabled]="!selectedFile" class="btn btn-success">
+    Upload
+  </button>
+  |
+  <button
+    type="button"
+    (click)="resetForm()"
+    [disabled]="!selectedFile"
+    class="btn btn-secondary"
+  >
+    Reset
+  </button>
+</form>

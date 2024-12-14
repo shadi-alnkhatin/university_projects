@@ -1,0 +1,144 @@
+<div class="container-fluid">
+  <div class="row" *ngIf="user">
+    <div class="col-4">
+      <h2>{{ user.firstName }} profile</h2>
+    </div>
+    <div class="col-8">
+      <div class="alert alert-info" *ngIf="editForm.dirty">
+        <strong>Information: </strong> You have made changes. Any unsaved
+        changes will be lost
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <img
+          src="{{ user.photoUrl || './assets/user.jpg' }}"
+          alt="{{ user.firstName }}"
+          class="card-img-top img-thumbnail"
+        />
+        <div class="card-body">
+          <div>
+            <strong>Location:</strong>
+            <p>{{ user.city }}, {{ user.country }}</p>
+          </div>
+          <div>
+            <strong>Age:</strong>
+            <p>{{ user.age }}</p>
+          </div>
+
+          <div>
+            <strong>user since:</strong>
+            <p>{{ user.createdAt | date : "dd MMM yyyy" }}</p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button
+            form="editForm"
+            type="submit"
+            class="btn btn-success btn-block"
+            [disabled]="!editForm.dirty"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link active"
+            id="simple-tab-0"
+            data-bs-toggle="tab"
+            href="#simple-tabpanel-0"
+            role="tab"
+            aria-controls="simple-tabpanel-0"
+            aria-selected="true"
+            >Edit About {{ user.firstName }}</a
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link"
+            id="simple-tab-1"
+            data-bs-toggle="tab"
+            href="#simple-tabpanel-1"
+            role="tab"
+            aria-controls="simple-tabpanel-1"
+            aria-selected="false"
+            >Edit Photos</a
+          >
+        </li>
+      </ul>
+      <div class="tab-content pt-5" id="tab-content">
+        <div
+          class="tab-pane active"
+          id="simple-tabpanel-0"
+          role="tabpanel"
+          aria-labelledby="simple-tab-0"
+        >
+          <form
+            #editForm="ngForm"
+            id="editForm"
+            [formGroup]="form"
+            (ngSubmit)="submitForm()"
+          >
+            <label for="firstName">First Name:</label>
+            <input
+              type="text"
+              formControlName="firstname"
+              id="firstame"
+              class="form-control"
+            />
+
+            <label for="LastName">Last Name:</label>
+            <input
+              type="text"
+              formControlName="lastname"
+              id="LastName"
+              class="form-control"
+            />
+
+            <label for="bio" class="form-label">Bio:</label>
+            <textarea
+              name="bio"
+              id="bio"
+              class="form-control"
+              formControlName="bio"
+              rows="6"
+            ></textarea>
+
+            <label for="Looking">Looking For:</label>
+            <input
+              type="text"
+              formControlName="lookingFor"
+              id="Looking
+              "
+              class="form-control"
+            />
+          </form>
+        </div>
+
+        <div
+          class="tab-pane"
+          id="simple-tabpanel-1"
+          role="tabpanel"
+          aria-labelledby="simple-tab-1"
+        >
+          <div class="gallery-container">
+            <div class="gallery">
+              <app-photo-editor
+                (reloadParent)="loadUserDetail()"
+                [user]="user"
+              ></app-photo-editor>
+            </div>
+          </div>
+
+          <!-- <span *ngIf="images.length == 0"
+          >{{ userDetails?.firstName }} does not have any photo yet
+        </span> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

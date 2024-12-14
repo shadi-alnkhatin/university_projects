@@ -1,0 +1,45 @@
+<div class="container">
+  <h2>Friend Requests</h2>
+  <hr />
+  <ng-container *ngIf="friendsRequests.length>0 ; else noRequest">
+    <div *ngFor="let request of friendsRequests" class="row">
+      <div class="col-1">
+        <div class="card" style="width: 500px">
+          <div class="row s">
+            <div class="col-sm-5">
+              <img
+                class="card-img"
+                src="{{ request.photoUrl }}"
+                alt="Suresh Dasari Card"
+              />
+            </div>
+            <div class="col-sm-7">
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{ request.firstName }} {{ request.lastName }}
+                </h5>
+                <p class="card-text"></p>
+                <br>
+                <br>
+                <div class="card-footer ">
+                  <div class="btn-group d-flex justify-content-center ">
+                    <button type="button" class="btn btn-success" (click)="approveFriendRequest(request.friendshipId)">
+                      <i class="fa-solid fa-check"></i>
+                    </button>
+                    <button type="button" (click)="rejectFriendRequest(request.friendshipId)" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+
+<ng-template #noRequest>
+  <h4 class="text-secondary">you dont have any request now </h4>
+</ng-template>
+

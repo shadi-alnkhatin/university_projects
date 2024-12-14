@@ -1,0 +1,193 @@
+<div class="mt-5 d-flex justify-content-center align-items-center">
+  <div class="card p-5" style="width: 30rem">
+    <form #loginForm [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="card-body">
+        <h5 class="card-title text-center">Register</h5>
+        <hr />
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <div class="form-outline">
+            <label class="form-label text-secondary" for="firstName"
+              >First Name</label
+            >
+            <input
+              type="text"
+              id="firstName"
+              class="form-control"
+              formControlName="firstName"
+            />
+            <ng-container
+              *ngIf="
+                form.get('firstName')?.touched && form.get('firstName')?.invalid
+              "
+            >
+              <span
+                class="text-danger"
+                *ngIf="form.get('firstName')?.errors?.required"
+                >*First Name is Required</span
+              >
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="form-outline">
+            <label class="form-label text-secondary" for="lastName"
+              >Last Name</label
+            >
+            <input
+              type="text"
+              id="lastName"
+              class="form-control"
+              formControlName="lastName"
+            />
+            <ng-container
+              *ngIf="
+                form.get('lastName')?.touched && form.get('lastName')?.invalid
+              "
+            >
+              <span
+                class="text-danger"
+                *ngIf="form.get('lastName')?.errors?.required"
+                >*Last Name is Required</span
+              >
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email-input" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email-input"
+          formControlName="email"
+          [ngClass]="{
+            'is-invalid':
+              form.get('email')?.touched && form.get('email')?.invalid
+          }"
+        />
+        <ng-container
+          *ngIf="form.get('email')?.touched && form.get('email')?.invalid"
+        >
+          <span class="text-danger" *ngIf="form.get('email')?.errors?.required"
+            >Email is Required</span
+          >
+          <span class="text-danger" *ngIf="form.get('email')?.errors?.email"
+            >Email is not valid</span
+          >
+        </ng-container>
+      </div>
+
+      <div class="mb-3">
+        <label for="password-input" class="form-label">Password</label>
+
+        <input
+          type="password"
+          class="form-control"
+          id="password-input"
+          name="password"
+          formControlName="password"
+          [ngClass]="{
+            'is-invalid':
+              form.get('password')?.touched && form.get('password')?.invalid
+          }"
+        />
+
+        <ng-container
+          *ngIf="form.get('password')?.touched && form.get('password')?.invalid"
+        >
+          <span
+            class="text-danger"
+            *ngIf="form.get('password')?.errors?.required"
+            >password is Required</span
+          ><span
+            class="text-danger"
+            *ngIf="form.get('password')?.errors?.minlength"
+            >password must be more 8 char</span
+          >
+        </ng-container>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-4 d-flex align-items-center">
+          <div class="formGroup">
+            <label for="age" class="form-label text-secondary">Age:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="age"
+              formControlName="age"
+            />
+
+            <ng-container
+              *ngIf="form.get('age')?.touched && form.get('age')?.invalid"
+            >
+              <span
+                class="text-danger"
+                *ngIf="form.get('age')?.errors?.required"
+                >Age is Required</span
+              >
+              <span class="text-danger" *ngIf="form.get('age')?.errors?.min"
+                >Age must be 18 at least</span
+              >
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <span class="mb-3 pb-1" style="display: block">Gender: </span>
+
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              formControlName="gender"
+              type="radio"
+              name="inlineRadioOptions"
+              id="femaleGender"
+              value="Female"
+              checked
+            />
+            <label class="form-check-label" for="femaleGender">Female</label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              formControlName="gender"
+              type="radio"
+              name="inlineRadioOptions"
+              id="maleGender"
+              value="Male"
+            />
+            <label class="form-check-label" for="maleGender">Male</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <select
+          class="form-select"
+          formControlName="country"
+          name="country"
+          id="country"
+        >
+          <option value="" disabled selected>Select Country</option>
+          <option *ngFor="let country of countries" [value]="country.name">
+            {{ country.name }}
+          </option>
+        </select>
+      </div>
+
+      <button
+        class="btn text-light"
+        style="background-color: #7528c7"
+        [ngClass]="{
+          disabled: form.invalid
+        }"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

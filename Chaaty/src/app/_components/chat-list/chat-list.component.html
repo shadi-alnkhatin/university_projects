@@ -1,0 +1,18 @@
+<div class="chatList">
+<ng-container *ngFor="let user of users">
+  <div (click)="injectUserId(user.id)" class="d-flex align-items-center my-3" style="cursor: pointer;">
+    <div class="flex-shrink-0">
+      <img
+        class="rounded"
+        [src]="user.photoUrl"
+        alt="user img"
+      />
+      <span class="active"></span>
+    </div>
+    <div class="flex-grow-1 ms-3">
+      <h3>{{user.firstName}} {{user.lastName}}</h3>
+    </div>
+  </div>
+  <hr>
+</ng-container>
+</div>

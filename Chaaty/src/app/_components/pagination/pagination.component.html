@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-center">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <button
+          class="page-link"
+          (click)="changePage(currentPage - 1)"
+          [disabled]="currentPage === 1"
+          aria-label="Previous"
+        >
+          <span aria-hidden="true">&laquo;</span>
+        </button>
+      </li>
+      <span class="text-secondary p-2"
+        >Page {{ currentPage }} of {{ totalPages }}
+      </span>
+      <li class="page-item">
+        <button
+          class="page-link"
+          (click)="changePage(currentPage + 1)"
+          [disabled]="currentPage === totalPages"
+          aria-label="Next"
+        >
+          <span aria-hidden="true">&raquo;</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</div>

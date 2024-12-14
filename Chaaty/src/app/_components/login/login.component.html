@@ -1,0 +1,76 @@
+
+
+<div class="mt-5 d-flex justify-content-center align-items-center">
+  <div class="card p-5" style="width: 25rem">
+    <form #loginForm [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="card-body">
+        <h5 class="card-title text-center">Login</h5>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          formControlName="email"
+          [ngClass]="{
+            'is-invalid':
+              form.get('email')?.touched && form.get('email')?.invalid
+          }"
+        />
+        <ng-container
+          *ngIf="form.get('email')?.touched && form.get('email')?.invalid"
+        >
+          <span class="text-danger" *ngIf="form.get('email')?.errors?.required"
+            >Email is Required</span
+          >
+          <span class="text-danger" *ngIf="form.get('email')?.errors?.email"
+            >Email is not valid</span
+          >
+        </ng-container>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+
+        <input
+          type="password"
+          class="form-control"
+          id="exampleInputPassword1"
+          name="password"
+          formControlName="password"
+          [ngClass]="{
+            'is-invalid':
+              form.get('password')?.touched && form.get('password')?.invalid
+          }"
+        />
+
+        <ng-container
+          *ngIf="form.get('password')?.touched && form.get('password')?.invalid"
+        >
+          <span
+            class="text-danger"
+            *ngIf="form.get('password')?.errors?.required"
+            >password is Required</span
+          ><span
+            class="text-danger"
+            *ngIf="form.get('password')?.errors?.minlength"
+            >password must be more 8 char</span
+          >
+        </ng-container>
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+        <label class="form-check-label" for="exampleCheck1">Remeber me</label>
+      </div>
+      <button
+        class="btn text-light"
+        style="background-color: #7528c7"
+        [ngClass]="{
+          disabled: form.invalid
+        }"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

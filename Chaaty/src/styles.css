@@ -1,0 +1,33 @@
+.form-control:focus {
+  border-color: #7528c7;
+  box-shadow: 0 0 0 0.25rem rgba(230, 221, 236, 0.25);
+}
+.form-check-input:checked {
+  background-color: #7528c7; /* Custom background color when checked */
+  border-color: #b7acc4;
+}
+.btn-purple {
+  background-color: #7528c7;
+  border: none;
+  border-radius: 7%;
+  color: white;
+  
+}
+
+.btn-purple:hover {
+  background-color: #6916c2;
+}
+
+.btn-purple:active {
+  background-color: #580aa3;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.btn-purple:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(117, 40, 199, 0.5);
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

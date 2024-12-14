@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div *ngIf="users.length > 0" class="row">
+    <div *ngFor="let user of users" class="col-2 m-5">
+      <div class="card" style="width: 18rem">
+        <img
+          [src]="user.photoUrl || './assets/user.jpg'"
+          class="card-img-top"
+          style="height: 250px"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ user.firstName }} {{ user.lastName }}
+          <ng-container *ngIf="((presence.onlineUsers$|async)?.includes(user.id))">
+            <i class="fa-solid fa-circle fa-fade" style="color: green; font-size: x-small;"></i>
+          </ng-container>
+          </h5>
+          <p class="card-text">{{ user.gender }}-{{ user.age }}</p>
+          <p class="card-text">{{ user.country }}</p>
+          <a [routerLink]="['/user-details', user.id]" class="btn btn-secondary">
+            <i class="fa-solid fa-user" ></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-pagination
+    [currentPage]="page"
+    [itemsPerPage]="pageSize"
+    [totalItems]="pagination.totalItems"
+    [totalPages]="pagination.totalPages"
+    (pageChanged)="onPageChange($event)"
+  >
+  </app-pagination>
+</div>

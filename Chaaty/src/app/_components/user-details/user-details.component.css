@@ -1,0 +1,32 @@
+.img-thumbnail
+{
+  width: 60%;
+}
+.tab-content .tab-pane {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.gallery-container {
+  margin: 0 !important;
+  padding: 0 !important;
+  /* height: 450px; */
+  overflow: hidden;
+}
+
+.gallery {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav-link
+{
+  color: #7528c7;
+}
+.nav-link .active
+{
+  color: #7528c7;
+}

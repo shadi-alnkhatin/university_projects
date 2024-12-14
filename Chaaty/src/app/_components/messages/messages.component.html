@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <app-chat-list [users]="users" (reciverId)="injectReciver($event)"></app-chat-list>
+    </div>
+    <div class="col-8">
+      <ng-container *ngIf="reciver; else Message">
+        <button class="btn btn-secondary btn-sm" (click)="clearReciver()">X</button>
+        <app-chat-box [recipentId]="reciver"></app-chat-box>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<ng-template #Message>
+  <h1 class="text-center text-secondary">Welcome</h1>
+</ng-template>

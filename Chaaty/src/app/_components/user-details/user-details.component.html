@@ -1,0 +1,177 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <div class="card">
+        <div class="d-flex justify-content-center align-items-center">
+          <img
+            src="{{ userDetails.photoUrl || './assets/user.jpg' }}"
+            alt="{{ userDetails.firstName }}"
+            class="card-img-top img-thumbnail"
+          />
+        </div>
+
+        <div class="card-body">
+          <ng-container
+            class="mb-2"
+            *ngIf="onlineUsers?.includes(userDetails.id)"
+          >
+            <i class="fa fa-user-circle text-success"></i> Online now
+          </ng-container>
+          <div>
+            <strong>Location:</strong>
+            <p>{{ userDetails.country }}</p>
+          </div>
+          <div>
+            <strong>Age:</strong>
+            <p>{{ userDetails.age }}</p>
+          </div>
+          <div>
+            <strong>Last Active:</strong>
+            <p>{{ userDetails.lastActive | timeago }}</p>
+          </div>
+          <div>
+            <strong>Member since:</strong>
+            <p>{{ userDetails.createdAt | date : "dd MMM yyyy" }}</p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="btn-group d-flex">
+            <!-- Add Friend Button -->
+            <ng-container
+              *ngIf="!userDetails.isThereFriendRequest; else requestExists"
+            >
+              <button
+                type="button"
+                (click)="addFriend(userDetails.id)"
+                class=" btn-purple"
+              >
+                Add Friend
+              </button>
+            </ng-container>
+
+            <!-- Request Exists Template -->
+            <ng-template #requestExists>
+              <ng-container
+                *ngIf="
+                  userDetails.friendshipStatus == 'Accepted';
+                  else pendingRequest
+                "
+              >
+                <button
+                  type="button"
+                  (click)="rejectFriendRequest(userDetails.friendShipId)"
+                  class="btn-purple"
+                >
+                  Cancel Friendship
+                </button>
+              </ng-container>
+
+              <ng-template #pendingRequest>
+                <ng-container
+                  *ngIf="userDetails.isSender; else receiverRequest"
+                >
+                  <button
+                    type="button"
+                    (click)="rejectFriendRequest(userDetails.friendShipId)"
+                    class="btn-purple"
+                  >
+                    Cancel Request
+                  </button>
+                </ng-container>
+
+                <ng-template #receiverRequest>
+                  <button type="button" (click)="approveFriendRequest(userDetails.friendShipId)" class=" btn-purple">
+                    Approve Request
+                  </button>
+                </ng-template>
+              </ng-template>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-8">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link active"
+            id="about-tab"
+            data-bs-toggle="tab"
+            href="#about-tab-presentation"
+            role="tab"
+            aria-controls="about-tab-presentation"
+            aria-selected="true"
+            >About {{ userDetails.firstName }}</a
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link"
+            id="photo-tab"
+            data-bs-toggle="tab"
+            href="#photo-tab-presentation"
+            role="tab"
+            aria-controls="photo-tab-presentation"
+            aria-selected="false"
+            >Photos</a
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link"
+            id="messages-tab"
+            data-bs-toggle="tab"
+            href="#messages-tab-presentation"
+            role="tab"
+            aria-controls="messages-tab-presentation"
+            aria-selected="false"
+            >Messages</a
+          >
+        </li>
+      </ul>
+      <div class="tab-content pt-5" id="tab-content">
+        <div
+          class="tab-pane active"
+          id="about-tab-presentation"
+          role="tabpanel"
+          aria-labelledby="about-tab"
+        >
+          <span><b>Bio :</b></span>
+          <p>{{ userDetails.bio }}</p>
+
+          <span><b>Looking for :</b></span>
+          <p>{{ userDetails.lookingFor }}</p>
+        </div>
+        <div
+          class="tab-pane"
+          id="photo-tab-presentation"
+          role="tabpanel"
+          aria-labelledby="photo-tab"
+        >
+          <ng-container *ngIf="images.length > 0">
+            <div class="gallery-container">
+              <div class="gallery">
+                <gallery [items]="images" [thumbs]="false"></gallery>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="images.length === 0">
+            <span class="text-secondary"
+              >{{ userDetails.firstName }}
+              does not have any photo yet
+            </span>
+          </ng-container>
+        </div>
+        <div
+          class="tab-pane"
+          id="messages-tab-presentation"
+          role="tabpanel"
+          aria-labelledby="messages-tab"
+        >
+          <app-chat-box recipentId="{{ userDetails.id }}"></app-chat-box>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

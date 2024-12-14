@@ -1,0 +1,45 @@
+<div class="chat-box">
+  <div class="chat-box-header">Chat Box</div>
+  <div class="chat-box-body">
+    <ng-container *ngFor="let message of message.messageThread | async">
+      <div
+        class="chat-message"
+        [ngClass]="message.recipientId == recipentId ? 'sent' : 'received'"
+        data-bs-toggle="tooltip"
+        [title]="message.messageSent | timeago"
+        data-bs-placement="top"
+      >
+        {{ message.content }}
+        <ng-container
+          *ngIf="
+            message.dateRead && message.recipientId == recipentId;
+            else Check
+          "
+        >
+          <i class="fa-solid fa-check-double"> </i>
+        </ng-container>
+      </div>
+
+      <ng-template #Check>
+        <ng-container *ngIf="message.recipientId == recipentId">
+          <i class="fa-solid fa-check"></i>
+        </ng-container>
+      </ng-template>
+    </ng-container>
+  </div>
+  <div class="chat-box-footer">
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+      <div class="input-group">
+        <textarea
+          type="text"
+          class="form-control"
+          [(ngModel)]="content"
+          name="content"
+          placeholder="Type a message..."
+        >
+        </textarea>
+        <button class=" btn-purple text-light" type="submit">Send</button>
+      </div>
+    </form>
+  </div>
+</div>
